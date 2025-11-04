@@ -1,0 +1,323 @@
+<style>
+    table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+#t01 th {
+  background-color: black;
+  color: white;
+}
+.budget_proposal{
+    width: 100%;
+}
+.budget{
+    width: 100%;
+}
+.form-check-input {
+    position: static;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+</style>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Olympic Solidarity Online Platform</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">@lang('custom.home')</a></li>
+                    <li class="breadcrumb-item active">{{ $slug }}</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">الرجاء تعبئة البيانات المطلوبة في الإستمارة</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" id="quickForm" method="POST" action="{{ url('/forms/save_form1') }}">
+                        @csrf
+
+                        @if(isset($dataUserApplications))
+                        <input type="hidden" name="dataUserApplicationsId" value="{{$dataUserApplications['id']}}" />
+                        @endif
+
+                        <div class="card-body">
+                            <div class="form-group col-md-6">
+                                <input type="hidden" name="application_id" class="form-control" placeholder="Committee Name" value="{{$application_id}}">
+                            </div>
+                            <p>IMPORTANT: In order for this request to be taken into consideration, this form, duly completed and signed, should be sent to Olympic Solidarity in electronic format, at the very latest two (2) months prior to the start of the activity.</p>
+                            <p>يجب ارسال هذا الطلب قبل مدة لا تقل عن شهرين من الموعد المحدد لتنفيذ البرنامج</p>
+                            <h3>Title of the Proggram</h3>
+                            <h3 class="form_header_2">عنوان البرنامج :</h3>
+                            <table style="margin-top: 20px;">
+                                <tr>
+                                    <td>نوع البرنامج المراد تنفيذه</td>
+                                    <td>
+                                        <div class="row"> 
+                                            استراتيجية <input class="form-check-input" type="checkbox" name="strategy" value="strategy" {{isset($data['strategy']) && $data['strategy']  =="strategy" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <div class="row">
+                                            ندوة <input class="form-check-input" type="checkbox" name="symposium" value="symposium" {{isset($data['symposium']) && $data['symposium']  =="symposium" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <div class="row">
+                                            مشروع <input class="form-check-input" type="checkbox" name="project" value="project" {{isset($data['project']) && $data['project']  =="project" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <div class="row">
+                                            تدريب <input class="form-check-input" type="checkbox" name="training" value="training" {{isset($data['training']) && $data['training']  =="training" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h3 class="form_header_2" style="margin-top: 20px;">GENERAL INFORMATION البيانات العامة </h3>
+                            <div class="form-group col-md-12" style="margin-top: 20px;">
+                                <div class="row">
+                                    <div>
+                                        <input type="date" id="start_date" name="start_date" class="form-control" style="margin-right: 20px;"  value="{{isset($data['start_date'])? $data['start_date'] : ''}}" >
+                                        <label for="start_date">البداية Start date</label>
+                                    </div>
+                                    <div class="ml-2 mr-2">
+                                        <input type="date" id="end_date" name="end_date" class="form-control" style="margin-right: 20px;" value="{{isset($data['end_date'])? $data['end_date'] : ''}}">
+                                        <label for="end_date">النهايةEnd date:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group col-md-12">
+                                <label for="exampleInputEmail1" style="margin-top: 20px;">What is the current situation of your Committee / NF and your national sporting movement in this area?</label>
+                                <label>ما هو الوضع الحالي لـــ اللجنة / الاتحاد في هذا المجال </label>
+                                <textarea class="form-control"  name ="national_sporting" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{isset($data['national_sporting']) ? $data['national_sporting'] : ''}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <label for="exampleInputEmail1">What are your future objectives in this area?</label><br>
+                                <label>ما هي اهدافك المستقبيلة في هذا المجال</label>
+                                <textarea class="form-control"  name ="future_objectives" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{isset($data['future_objectives']) ? $data['future_objectives'] : ''}}</textarea>
+                            </div>
+                            <div class="form-group col-md-12 row">
+                                <label for="exampleInputEmail1">How do you expect that the formulation of a strategy will help you achieve these objectives?</label><br>
+                                <label>كيف تتوقع ان يساعدك هذا البرنامج في تحقيق اهدافك</label>
+                                <textarea class="form-control"  name ="formulation_strategy" style="width: 100%; height: 100px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{isset($data['formulation_strategy']) ? $data['formulation_strategy'] : ''}}</textarea>
+                            </div>
+
+
+
+                            
+                        <h3 class="form_header_2" style="margin-top: 20px;">PARTICIPANTS المشاركين </h3> 
+                            
+                           <table style="margin-top: 20px;">
+                                <tr>
+                                    <th></th>
+                                    <th>رجالMen</th>
+                                    <th>نساءWomen</th>
+                                    <th>الاجماليTotal</th>
+                                </tr>
+                                <tr>
+                                    <td>National Olympic Committee representatives ممثلو اللجنة الأولمبية الوطنية</td>
+                                    <td class="p-0"><input type="text" name="men[0]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][0])? $data['men'][0] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[0]" class="budget border-0" value="{{isset($data['women'][0])? $data['women'][0] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[0]" class="budget border-0" value="{{isset($data['total'][0])? $data['total'][0] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>National federation representatives ممثلو الاتحاد الوطني</td>
+                                    <td class="p-0"><input type="text" name="men[1]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][1])? $data['men'][1] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[1]" class="budget border-0" value="{{isset($data['women'][1])? $data['women'][1] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[1]" class="budget border-0" value="{{isset($data['total'][1])? $data['total'][1] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>National Paralympic Committee representatives ممثلو اللجنة البارالمبية الوطنية</td>
+                                    <td class="p-0"><input type="text" name="men[2]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][2])? $data['men'][2] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[2]" class="budget border-0" value="{{isset($data['women'][2])? $data['women'][2] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[2]" class="budget border-0" value="{{isset($data['total'][2])? $data['total'][2] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>National Olympic Academy representatives ممثلو الأكاديمية الأولمبية الوطنية</td>
+                                    <td class="p-0"><input type="text" name="men[3]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][3])? $data['men'][3] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[3]" class="budget border-0" value="{{isset($data['women'][3])? $data['women'][3] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[3]" class="budget border-0" value="{{isset($data['total'][3])? $data['total'][3] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Athletes اللاعبين</td>
+                                    <td class="p-0"><input type="text" name="men[4]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][4])? $data['men'][4] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[4]" class="budget border-0" value="{{isset($data['women'][4])? $data['women'][4] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[4]" class="budget border-0" value="{{isset($data['total'][4])? $data['total'][4] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Coaches المدربين</td>
+                                    <td class="p-0"><input type="text" name="men[5]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][5])? $data['men'][5] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[5]" class="budget border-0" value="{{isset($data['women'][5])? $data['women'][5] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[5]" class="budget border-0" value="{{isset($data['total'][5])? $data['total'][5] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>International organisations المنظمات الدولية</td>
+                                    <td class="p-0"><input type="text" name="men[6]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][6])? $data['men'][6] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[6]" class="budget border-0" value="{{isset($data['women'][6])? $data['women'][6] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[6]" class="budget border-0" value="{{isset($data['total'][6])? $data['total'][6] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Non-governmental organisations المنظمات غير الحكومية</td>
+                                    <td class="p-0"><input type="text" name="men[7]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][7])? $data['men'][7] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[7]" class="budget border-0" value="{{isset($data['women'][7])? $data['women'][7] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[7]" class="budget border-0" value="{{isset($data['total'][7])? $data['total'][7] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Governmental organisations المنظمات الحكومية</td>
+                                    <td class="p-0"><input type="text" name="men[8]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][8])? $data['men'][8] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[8]" class="budget border-0" value="{{isset($data['women'][8])? $data['women'][8] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[8]" class="budget border-0" value="{{isset($data['total'][8])? $data['total'][8] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Private sector, e.g. sponsors القطاع الخاص - الرعاة</td>
+                                    <td class="p-0"><input type="text" name="men[9]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][9])? $data['men'][9] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[9]" class="budget border-0" value="{{isset($data['women'][9])? $data['women'][9] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[9]" class="budget border-0" value="{{isset($data['total'][9])? $data['total'][9] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Doctors الاطباء</td>
+                                    <td class="p-0"><input type="text" name="men[10]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][10])? $data['men'][10] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[10]" class="budget border-0" value="{{isset($data['women'][10])? $data['women'][10] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[10]" class="budget border-0" value="{{isset($data['total'][10])? $data['total'][10] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Physiotherapists العلاج الطبيعي</td>
+                                    <td class="p-0"><input type="text" name="men[11]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][11])? $data['men'][11] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[11]" class="budget border-0" value="{{isset($data['women'][11])? $data['women'][11] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[11]" class="budget border-0" value="{{isset($data['total'][11])? $data['total'][11] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Other medical personnel افراد طبيون اخرون</td>
+                                    <td class="p-0"><input type="text" name="men[12]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][12])? $data['men'][12] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[12]" class="budget border-0" value="{{isset($data['women'][12])? $data['women'][12] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[12]" class="budget border-0" value="{{isset($data['total'][12])? $data['total'][12] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Media الاعلام</td>
+                                    <td class="p-0"><input type="text" name="men[13]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][13])? $data['men'][13] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[13]" class="budget border-0" value="{{isset($data['women'][13])? $data['women'][13] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[13]" class="budget border-0" value="{{isset($data['total'][13])? $data['total'][13] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Other اخرين</td>
+                                    <td class="p-0"><input type="text" name="men[14]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][14])? $data['men'][14] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[14]" class="budget border-0" value="{{isset($data['women'][14])? $data['women'][14] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[14]" class="budget border-0" value="{{isset($data['total'][14])? $data['total'][14] : ''}}"></td>
+                                </tr>
+                                <tr>
+                                    <td>TOTAL</td>
+                                    <td class="p-0"><input type="text" name="men[15]" class="budget_proposal border-0" style="width: 100%;" value="{{isset($data['men'][15])? $data['men'][15] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="women[15]" class="budget border-0" value="{{isset($data['women'][15])? $data['women'][15] : ''}}"></td>
+                                    <td class="p-0"><input type="text" name="total[15]" class="budget border-0" value="{{isset($data['total'][15])? $data['total'][15] : ''}}"></td>
+                                </tr>
+                            </table>
+
+
+                            <div class="col-md-12 row" style="margin-top: 20px;">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1">Do you plan to involve experts or organisations other than your NOC in the development of the strategy? If so, which experts and/or organisations?  Please attach CVs if experts have already been identified هل تخطط لإشراك خبراء أو منظمات أخرى في تطوير هذا المشروع؟ إذا كان الأمر كذلك ، فما الخبراء و / أو المنظمات؟
+يرجى إرفاق السير الذاتية إذا تم تحديد الخبراء بالفعل
+</label>
+                                    <input type="radio" id="yes" name="organisations_noc"  value="yes" {{isset($data['organisations_noc']) && $data['organisations_noc']  == "yes" ? 'checked' : ''}} >
+                                    <label for="yes">Yes</label>
+                                    <input type="radio" id="no" name="organisations_noc" value="no" {{isset($data['organisations_noc']) && $data['organisations_noc']  == "no" ? 'checked' : ''}}>
+                                    <label for="no">No</label>
+                                </div>
+                            </div>
+                            
+                            <h3 class="form_header_2" style="margin-top: 20px;">BUDGET الموازنة </h3> 
+                            <h3 class="form_header_2" style="margin-top: 20px;">ATTACHMENTS المرفقات المطلوبة </h3> 
+                            <table style="margin-top: 20px;">
+                                <tr>
+                                    <td>CVs of experts, if already identified السيرة الذاتية للخبير اذا توفر </td>
+                                    <td>
+                                        <div class="row">
+                                        تحميل مرفق  <input class="form-check-input" type="checkbox" name="CVs_of_experts" value="CVs_of_experts" {{isset($data['CVs_of_experts']) && $data['CVs_of_experts']  =="CVs_of_experts" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>الخطة التفصيلية للبرنامج	تحميل مرفق  </td>
+                                    <td>
+                                        <div class="row">
+                                        تحميل مرفق  <input class="form-check-input" type="checkbox" name="detailed_program_plan_download_facility" value="detailed_program_plan_download_facility" {{isset($data['detailed_program_plan_download_facility']) && $data['detailed_program_plan_download_facility']  =="detailed_program_plan_download_facility" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>رسالة التغطية الموجهة للأمانة	تحميل مرفق  </td>
+                                    <td>
+                                        <div class="row">
+                                        تحميل مرفق  <input class="form-check-input" type="checkbox" name="cover_letter_addressed" value="cover_letter_addressed" {{isset($data['cover_letter_addressed']) && $data['cover_letter_addressed']  =="cover_letter_addressed" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>الموازنة  </td>
+                                    <td>
+                                        <div class="row">
+                                        تحميل مرفق  <input class="form-check-input" type="checkbox" name="budget" value="budget" {{isset($data['budget']) && $data['budget']  =="budget" ? 'checked' : ''}}>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <h3 class="form_header_2" style="margin-top: 20px;">REPORTING</h3> 
+                            <p>Once you have finalised the development of your strategy, you will be asked to submit a copy of the strategy together with a financial report. The strategy should contain objectives, an action plan and means for measuring outcomes/progress. 
+بمجرد الانتهاء من تطوير البرنامج ، سيُطلب منك تقديم نسخة من المشروع مع تقرير مالي. يجب أن تحتوي الاستراتيجية على أهداف وخطة عمل ووسائل لقياس النتائج / التقدم.</p>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            @if (( \Auth::user()->hasAnyRole(['User']) && !isset($data) ) || (\Auth::user()->hasAnyRole(['User']) && (isset($dataUserApplications) && $dataUserApplications['status'] == 'request not completed')))
+                                @if(isset($data))
+                                <button type="submit" class="btn btn-primary">@lang('custom.update')</button>
+                                @else
+                                <button type="submit" class="btn btn-primary">@lang('custom.save')</button>
+                                @endif
+                            @endif
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            
+        </div>
+
+    </div>
+</section>
