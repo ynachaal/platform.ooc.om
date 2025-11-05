@@ -711,8 +711,8 @@ public function allReportExcelDownload()
         }
         $dataUserApplications->save();
         
-        $user = User::where('id', $dataUserApplications['user_id'])->pluck('email')->toArray();
-        $to_email = $user;
+        $to_email_user_array = User::where('id', $dataUserApplications['user_id'])->pluck('email')->toArray();
+       // $to_email = $user;
         $firstline = "مرحبا بكم في منصة التضامن الأولمبي";
         $secondline = "تمت مراجعة الطلب:";
         $regards = "مع تحيات";
@@ -721,7 +721,7 @@ public function allReportExcelDownload()
         
         $admins =array();
        
-        $to_email_user_array = array($to_email);
+        //$to_email_user_array = array($to_email);
         
          if (Auth::user()->hasAnyRole(['Super Admin'])) {
              $admin_id = $dataUserApplications->remark_user;
