@@ -318,6 +318,7 @@ if(isset($dataUserApplications['superadmin_document']) && !empty($dataUserApplic
 
 <script type="text/javascript">
     $(function() {
+
         var APP_URL = {!! json_encode(url('/')) !!};
 
         $('body').on('click', '.check_appoved', function() {

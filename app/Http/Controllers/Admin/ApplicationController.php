@@ -683,6 +683,8 @@ public function allReportExcelDownload()
     {
         
         $dataUserApplications = UserApplications::where('id', $id)->first();
+	  
+	 
         $superadmins = User::role('super admin')->pluck('email')->toArray();
         
 		
@@ -721,7 +723,7 @@ public function allReportExcelDownload()
         
         $admins =array();
        
-        //$to_email_user_array = array($to_email);
+       // $to_email_user_array = array($to_email);
         
          if (Auth::user()->hasAnyRole(['Super Admin'])) {
              $admin_id = $dataUserApplications->remark_user;
